@@ -2,6 +2,7 @@ package com.example.havagas
 
 import android.app.Activity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.RadioButton
@@ -17,12 +18,111 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindView()
+        if (savedInstanceState != null) {
+            retrieveState(savedInstanceState)
+        }
         addListeners()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        outState.putString("fullNameEt", binding.fullNameEt.text.toString())
+        outState.putString("mailEt", binding.mailEt.text.toString())
+        outState.putBoolean("shouldJoinMailListCb", binding.shouldJoinMailListCb.isChecked)
+        outState.putString("phoneEt", binding.phoneEt.text.toString())
+        outState.putInt("phoneRadioGroup", binding.phoneRadioGroup.checkedRadioButtonId)
+        outState.putString("cellPhoneNumberEt", binding.cellPhoneNumberEt.text.toString())
+        outState.putInt("genderRadioGroup", binding.genderRadioGroup.checkedRadioButtonId)
+        outState.putString("birthDateEt", binding.birthDateEt.text.toString())
+        outState.putInt("educationSpinner", binding.educationSpinner.selectedItemPosition)
+        outState.putString("graduationYearEt", binding.graduationYearEt.text.toString())
+        outState.putString("institutionEt", binding.institutionEt.text.toString())
+        outState.putString("monographyEt", binding.monographyEt.text.toString())
+        outState.putString("vacancyInterest", binding.vacancyInterest.text.toString())
+        super.onSaveInstanceState(outState, outPersistentState)
     }
 
     private fun bindView() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+    }
+
+    private fun retrieveState(savedInstanceState: Bundle) {
+        binding.fullNameEt.append(
+            savedInstanceState.getString(
+                "fullNameEt",
+                binding.fullNameEt.text.toString()
+            )
+        )
+        binding.mailEt.append(
+            savedInstanceState.getString(
+                "mailEt",
+                binding.mailEt.text.toString()
+            )
+        )
+        binding.shouldJoinMailListCb.isChecked = savedInstanceState.getBoolean(
+            "shouldJoinMailListCb",
+            binding.shouldJoinMailListCb.isChecked
+        )
+        binding.phoneEt.append(
+            savedInstanceState.getString(
+                "phoneEt",
+                binding.phoneEt.text.toString()
+            )
+        )
+        binding.phoneRadioGroup.check(
+            savedInstanceState.getInt(
+                "phoneRadioGroup",
+                binding.phoneRadioGroup.checkedRadioButtonId
+            )
+        )
+        binding.cellPhoneNumberEt.append(
+            savedInstanceState.getString(
+                "cellPhoneNumberEt",
+                binding.cellPhoneNumberEt.text.toString()
+            )
+        )
+        binding.genderRadioGroup.check(
+            savedInstanceState.getInt(
+                "genderRadioGroup",
+                binding.genderRadioGroup.checkedRadioButtonId
+            )
+        )
+        binding.birthDateEt.append(
+            savedInstanceState.getString(
+                "birthDateEt",
+                binding.birthDateEt.text.toString()
+            )
+        )
+        binding.educationSpinner.setSelection(
+            savedInstanceState.getInt(
+                "educationSpinner",
+                binding.educationSpinner.selectedItemPosition
+            )
+        )
+        binding.graduationYearEt.append(
+            savedInstanceState.getString(
+                "graduationYearEt",
+                binding.graduationYearEt.text.toString()
+            )
+        )
+        binding.institutionEt.append(
+            savedInstanceState.getString(
+                "institutionEt",
+                binding.institutionEt.text.toString()
+            )
+        )
+        binding.monographyEt.append(
+            savedInstanceState.getString(
+                "monographyEt",
+                binding.monographyEt.text.toString()
+            )
+        )
+        binding.vacancyInterest.append(
+            savedInstanceState.getString(
+                "vacancyInterest",
+                binding.vacancyInterest.text.toString()
+            )
+        )
     }
 
     private fun addListeners() {
